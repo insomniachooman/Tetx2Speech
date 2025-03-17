@@ -23,19 +23,39 @@ def check_and_install(packages):
             install(package)
 
 # Add required packages including UI libraries
-required_packages = ["torch", "sounddevice", "numpy", "transformers", "accelerate", "matplotlib", "customtkinter"]
+required_packages = [
+    "torch", 
+    "sounddevice", 
+    "numpy", 
+    "transformers", 
+    "accelerate", 
+    "matplotlib", 
+    "customtkinter"
+]
 check_and_install(required_packages)
 
-# Suppress the Hugging Face symlinks warning on Windows
-os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
-
+# Import modules.
 import torch
-import sounddevice as sd
+
+# When a package might not be available at static analysis time, we try to import
+# it inside a try/except block, installing it on the fly if needed.
+try:
+    import sounddevice as sd  # type: ignore
+except ImportError:
+    install("sounddevice")
+    import sounddevice as sd  # type: ignore
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import customtkinter as ctk
+
+try:
+    import customtkinter as ctk  # type: ignore
+except ImportError:
+    install("customtkinter")
+    import customtkinter as ctk  # type: ignore
+
 from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 from threading import Thread
 import tkinter as tk
@@ -49,12 +69,12 @@ class AudioAnalyzer:
         self.running = False
     
     def analyze_audio_stream(self):
-        def callback(indata, frames, time, status):
+        def callback(indata, frames, time_info, status):
             if status:
                 print(status)
             # Calculate audio intensity (RMS amplitude)
             audio_data = indata.copy()
-            rms = np.sqrt(np.mean(audio_data**2)) * 100
+            rms = np.sqrt(np.mean(audio_data ** 2)) * 100
             self.intensity = min(1.0, rms)  # Normalize to 0-1 range
             self.audio_queue.put(audio_data[:, 0])  # Store only one channel
             
