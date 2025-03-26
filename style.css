@@ -1,0 +1,65 @@
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1, h2 {
+    color: #1a1a1a;
+}
+
+#controls button {
+    padding: 10px 15px;
+    margin-right: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+}
+
+#controls button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#controls button#stopButton {
+    background-color: #dc3545;
+}
+
+#controls button#stopButton:disabled {
+    background-color: #cccccc;
+}
+
+
+#status {
+    margin-top: 15px;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+#transcript {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    min-height: 100px;
+    white-space: pre-wrap; /* Preserve whitespace and wrap lines */
+    word-wrap: break-word;
+}
+
+#loading-info {
+    margin-top: 10px;
+    color: #555;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    padding: 10px;
+    border-radius: 5px;
+}
