@@ -69,13 +69,4 @@ Models are cached locally to avoid repeated downloads.
 
 ## 📜 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📝 Acknowledgements
-
-- Distil Whisper for the speech recognition model
-- CustomTkinter for the modern UI components
+This project is licensed under the MIT License
